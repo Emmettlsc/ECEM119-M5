@@ -1,4 +1,4 @@
-let websocket = new WebSocket('ws://44.207.82.113:8080/echo');
+let websocket = new WebSocket('ws://52.53.197.235:8081/echo');
 
 websocket.onmessage = function(event) {
     console.log(event.data);

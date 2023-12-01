@@ -1,27 +1,31 @@
 let websocket = new WebSocket('ws://44.207.82.113:8080/echo');
+
 websocket.onmessage = function(event) {
     console.log(event.data);
 
-    let data = JSON.parse(event.data);
+    let message = event.data;
+    let player = message.split(':')[0]; // Extract player number
+    let data = JSON.parse(message.split(':')[1]); // Parse the actual data
 
     if (data.type === 'gyroscope') {
-        // Assuming data.value contains the position
-        updatePaddlePosition(data.value);
+        if (player === 'Player 1') {
+            updatePaddlePosition(1, data.value);
+        } else if (player === 'Player 2') {
+            updatePaddlePosition(2, data.value);
+        }
     }
 };
-function updatePaddlePosition(position) {
-    // Update the paddle position based on the gyroscope data
-    // You'll need to map the gyroscope data to a suitable position value for the paddle
-    // paddle_1.style.top = position + paddle_1_coord.top + 'px';
 
-    paddle_1.style.top =
+function updatePaddlePosition(player, position) {
+    let paddle = player === 1 ? paddle_1 : paddle_2;
+    let paddleCoord = paddle.getBoundingClientRect();
+
+    paddle.style.top =
         Math.max(
             board_coord.top,
-            Math.min(paddle_1_coord.top - position * 50,
+            Math.min(paddleCoord.top - position * 50,
                 board_coord.bottom-400)
         ) + 'px';
-
-    paddle_1_coord = paddle_1.getBoundingClientRect();
 }
 
 websocket.onopen = function() {

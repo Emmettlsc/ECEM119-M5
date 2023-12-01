@@ -32,11 +32,11 @@ int status = WL_IDLE_STATUS;
 
 #if USE_SSL
   // Deprecated echo.websocket.org to be replaced
-  #define WS_SERVER           "44.207.82.113"
+  #define WS_SERVER           "52.53.197.235"
   #define WS_PORT             8080
 #else
   // To run a local WebSocket Server
-  #define WS_SERVER           "44.207.82.113"
+  #define WS_SERVER           "52.53.197.235"
   #define WS_PORT             8080
 #endif
 
